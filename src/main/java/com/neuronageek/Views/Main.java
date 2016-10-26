@@ -20,6 +20,9 @@ public class Main extends UI {
     @Autowired
     LoginView loginView;
 
+    @Autowired
+    CalendarView calendarView;
+
     @Override
     protected void init(VaadinRequest request) {
         User actual = (User) VaadinService.getCurrentRequest( ).getWrappedSession( ).getAttribute( "current_user" );
@@ -29,6 +32,9 @@ public class Main extends UI {
 
         if ( actual == null ){
             setContent( loginView );
+        }
+        else {
+            setContent( calendarView );
         }
 
     }
