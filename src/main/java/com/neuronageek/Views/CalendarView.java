@@ -21,11 +21,7 @@ public class CalendarView extends VerticalLayout {
     //https://github.com/vacax/SpringBootVaadin/blob/master/src/main/groovy/edu/pucmm/sbv/vistas/addons/PruebaCalendario.groovy
     public CalendarView( ){
         cal = new Calendar( "My events" );
-        cal.setLocale(Locale.US);
-        cal.setFirstVisibleDayOfWeek( 2 );   //Lunes
-        cal.setLastVisibleDayOfWeek( 6 );   // Viernes
-        cal.setFirstVisibleHourOfDay( 8 ); // 8 am
-        cal.setLastVisibleHourOfDay( 17 ); // 5 pm
+        cal.setLocale( Locale.US );
         cal.setSizeFull( );
 
         this.setSizeFull( );
