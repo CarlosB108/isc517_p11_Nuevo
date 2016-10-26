@@ -10,8 +10,13 @@ buildscript {
 	}
 }
 
+task wrapper(type: Wrapper) {
+	gradleVersion = '3.0'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 jar {
@@ -39,3 +44,5 @@ dependencyManagement {
 		mavenBom "com.vaadin:vaadin-bom:7.7.3"
 	}
 }
+
+bootRun.dependsOn 'vaadinCompile', 'vaadinThemeCompile'
