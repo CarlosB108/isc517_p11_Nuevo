@@ -24,16 +24,10 @@ import java.util.Locale;
 @UIScope
 @SpringUI
 public class CalendarView extends VerticalLayout {
-    @Autowired
+
     private EventService eventService;
-
-    @Autowired
     private UserService userService;
-
-    @Autowired
     private EventView eventView;
-
-    @Autowired
     private DataView dataView;
 
     private Main main;
@@ -44,7 +38,8 @@ public class CalendarView extends VerticalLayout {
     Calendar calendar = new Calendar( );
 
     //https://github.com/vacax/SpringBootVaadin/blob/master/src/main/groovy/edu/pucmm/sbv/vistas/addons/PruebaCalendario.groovy
-    public CalendarView( ){
+    @Autowired
+    public CalendarView(EventService eventService,UserService userService, EventView eventView,DataView dataView ){
         setSizeFull();
         setHeight("1000px");
         setMargin(true);
