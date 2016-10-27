@@ -29,7 +29,7 @@ public class Main extends UI {
 
         //https://vaadin.com/forum#!/thread/1149367/1697779
         Page.getCurrent( ).setTitle( "Calendarlin" );
-
+        calendarView.setUpMain( Main.this );
         if ( actual == null ){
             setContent( loginView );
         }
