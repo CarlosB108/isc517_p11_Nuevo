@@ -45,6 +45,11 @@ public class CalendarView extends VerticalLayout {
         setMargin(true);
         setSpacing(true);
 
+        this.eventService = eventService;
+        this.userService = userService;
+        this.eventView = eventView;
+        this.dataView = dataView;
+
 
         loadInterface( );
         loadCalendar( );
