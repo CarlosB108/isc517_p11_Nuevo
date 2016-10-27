@@ -1,17 +1,20 @@
 package com.neuronageek.Views;
 
 
-import com.neuronageek.Entities.User;
+import com.neuronageek.Entities.*;
 import com.neuronageek.Services.EventService;
 import com.neuronageek.Services.UserService;
 import com.vaadin.server.VaadinService;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
-import com.vaadin.ui.components.calendar.event.BasicEventProvider;
+import com.vaadin.ui.components.calendar.CalendarComponentEvents;
+import com.vaadin.ui.components.calendar.event.EditableCalendarEvent;
+import com.vaadin.ui.components.calendar.handler.BasicEventMoveHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -21,15 +24,18 @@ import java.util.Locale;
 @UIScope
 @SpringUI
 public class CalendarView extends VerticalLayout {
-
     @Autowired
     private EventService eventService;
+
     @Autowired
     private UserService userService;
 
-    //private EventView eventView;
+    @Autowired
+    private EventView eventView;
+
     @Autowired
     private DataView dataView;
+
     private Main main;
 
     Button add_button = new Button( "Add New Event" );
@@ -46,10 +52,21 @@ public class CalendarView extends VerticalLayout {
 
 
         loadInterface( );
-        loadContent( );
         loadCalendar( );
+        loadEvents( );
 
         set_up_popup_user( );
+        set_up_popup_event( );
+    }
+
+    public void loadEvents( ){
+        try {
+            for (com.neuronageek.Entities.Event e : eventService.findAll()) {
+                this.calendar.addEvent(e);
+            }
+        } catch ( Exception e ){
+            System.out.println( e.getMessage() );
+        }
     }
 
     public void loadInterface( ){
@@ -66,7 +83,6 @@ public class CalendarView extends VerticalLayout {
             }
         });
 
-
         option_buttons.addComponents( add_button, config_button, logout_button );
         buttons.addComponents( option_buttons );
 
@@ -76,20 +92,35 @@ public class CalendarView extends VerticalLayout {
         setExpandRatio(calendar, 1);
     }
 
-    public void loadContent( ) {
-    }
-
     public void loadCalendar( ){
         calendar.setLocale( Locale.US );
         calendar.setSizeFull( );
 
         this.setSizeFull( );
 
-        BasicEventProvider provider = new BasicEventProvider( );
+        //MOVE EVENTS FROM DATE
+        calendar.setHandler(new BasicEventMoveHandler() {
+            private java.util.Calendar javaCalendar;
+
+            public void eventMove(CalendarComponentEvents.MoveEvent event) {
+                javaCalendar = event.getComponent().getInternalCalendar();
+                super.eventMove(event);
+            }
+
+            protected void setDates(EditableCalendarEvent event,
+                                    Date start, Date end) {
+                com.neuronageek.Entities.Event e = ( com.neuronageek.Entities.Event ) event;
+                e.setStart(start);
+                e.setEnd( end );
+                eventService.save( e );
+            }
+        });
+
     }
 
     public void setUpMain( Main main ) {
         this.main = main;
+        eventView.setMain( main );
     }
 
     private void set_up_popup_user( ) {
@@ -105,18 +136,26 @@ public class CalendarView extends VerticalLayout {
                 addComponent( popup );
                 popup.setVisible(true);
             }
-        });
+        } );
     }
 
-    private void openModalView( String title, FormLayout form ) {
-        Window modalView = new Window( title );
-        modalView.center( );
-        modalView.setResizable( false );
-        modalView.setModal( true );
-        modalView.setClosable( true );
-        modalView.setDraggable( false );
-        modalView.setContent( form );
+    private void set_up_popup_event( ) {
 
-        main.addWindow( modalView );
+        add_button.addClickListener( new Button.ClickListener( ) {
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+                com.neuronageek.Entities.Event event_object;
+
+                event_object = new com.neuronageek.Entities.Event( );
+                event_object.setStart( new Date( ) );
+                event_object.setEnd( new Date( ) );
+                event_object.setName( "" );
+
+                eventView.setEvent(event_object);
+                PopupView popup = new PopupView( "Crear evento", eventView );
+                addComponent( popup );
+                popup.setVisible(true);
+            }
+        } );
     }
 }

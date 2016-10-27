@@ -5,6 +5,19 @@
   <meta charset="UTF-8" name="vaadin-version" content="7.7.0">
  </head> 
  <body> 
-  <vaadin-vertical-layout size-full></vaadin-vertical-layout>  
+  <vaadin-vertical-layout size-full> 
+   <vaadin-horizontal-layout> 
+    <vaadin-text-field caption="Nombre:" _id="name"></vaadin-text-field> 
+    <vaadin-date-field caption="Begin:" resolution="second" _id="start"></vaadin-date-field> 
+    <vaadin-date-field caption="End:" resolution="second" _id="end"></vaadin-date-field> 
+   </vaadin-horizontal-layout> 
+   <vaadin-button plain-text _id="create_button">
+     Create 
+   </vaadin-button> 
+   <vaadin-button plain-text _id="cancel_button">
+     Cancel 
+   </vaadin-button> 
+   <vaadin-form-layout size-auto></vaadin-form-layout> 
+  </vaadin-vertical-layout>  
  </body>
 </html>
