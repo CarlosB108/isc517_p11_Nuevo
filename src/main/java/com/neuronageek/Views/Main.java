@@ -1,6 +1,8 @@
 package com.neuronageek.Views;
 
 import com.neuronageek.Entities.User;
+import com.neuronageek.Services.EventService;
+import com.neuronageek.Services.UserService;
 import com.vaadin.annotations.Theme;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -16,6 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 @SpringUI(path = "/")
 @Theme("valo")
 public class Main extends UI {
+
+
+    @Autowired
+    private EventService eventService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private EventView eventView;
+
+    @Autowired
+    private DataView dataView;
 
     @Autowired
     LoginView loginView;
