@@ -10,6 +10,10 @@ buildscript {
 	}
 }
 
+plugins {
+	id 'fi.jasoft.plugin.vaadin' version '1.0'
+}
+
 task wrapper(type: Wrapper) {
 	gradleVersion = '3.0'
 }
@@ -48,4 +52,4 @@ dependencyManagement {
 	}
 }
 
-//bootRun.dependsOn 'vaadinCompile', 'vaadinThemeCompile'
+bootRun.dependsOn 'vaadinCompile', 'vaadinThemeCompile'

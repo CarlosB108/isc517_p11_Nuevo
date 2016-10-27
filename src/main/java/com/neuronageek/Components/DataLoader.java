@@ -23,7 +23,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         if ( alreadySetup )
             return;
 
-        User user = userRepository.findByEmail( "augusto@porra" );
+        User user = userRepository.findByEmail( "acmined@gmail.com" );
         if( user == null ) {
             user = new User( );
             user.setNames( "Augusto Fideligno" );
