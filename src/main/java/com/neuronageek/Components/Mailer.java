@@ -22,7 +22,7 @@ public class Mailer {
     @Autowired
     private UserService userService;
 
-    @Scheduled(fixedRate = 5000)
+    @Scheduled(fixedRate = 5000) //5 segundos
     public void sendEmails( ) {
 
         Date begin = new Date();
