@@ -32,7 +32,7 @@ public class Mailer {
         Date end = cal.getTime();
         List< Event > pendingEvents = eventService.findInterval( begin, end) ;
 
-        SendGrid sg = new SendGrid( "" );
+        SendGrid sg = new SendGrid( "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" );
         Request request = new Request();
 
         if ( pendingEvents != null && pendingEvents.size() > 0) {

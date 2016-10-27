@@ -45,7 +45,6 @@ public class CalendarView extends VerticalLayout {
         setMargin(true);
         setSpacing(true);
 
-
         loadInterface( );
         loadCalendar( );
         loadEvents( );
