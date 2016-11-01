@@ -1,8 +1,10 @@
 package com.neuronageek.Views;
 
+import com.neuronageek.Entities.User;
 import com.neuronageek.Services.EventService;
 import com.vaadin.data.fieldgroup.BeanFieldGroup;
 import com.vaadin.event.ShortcutAction;
+import com.vaadin.server.VaadinService;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.Button;
@@ -37,6 +39,7 @@ public class EventView extends Event {
         create_button.setClickShortcut(ShortcutAction.KeyCode.ENTER);
         create_button.addClickListener((Button.ClickListener) event -> {
             event_object.setStyleName("blue");
+            event_object.setUser( (User)VaadinService.getCurrentRequest().getWrappedSession().getAttribute("current_user") );
             eventService.save( event_object );
             main.calendarView.calendar.addEvent( event_object );
             Notification.show("Evento Agregado", Notification.Type.HUMANIZED_MESSAGE);

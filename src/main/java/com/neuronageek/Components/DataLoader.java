@@ -29,7 +29,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
             user.setNames( "Augusto Fideligno" );
             user.setLast_names( "Local" );
             user.setPassword( "1234" );
-            user.setEmail( "augusto@porra" );
+            user.setEmail( "acmined@gmail.com" );
             userRepository.save( user );
         }
 
